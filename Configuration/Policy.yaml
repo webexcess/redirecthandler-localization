@@ -1,0 +1,11 @@
+privilegeTargets:
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+    WebExcess_RedirectHandler_Localization_Redirect:
+      matcher: method(WebExcess\RedirectHandler\Localization\Controller\RedirectController->doAction())
+
+roles:
+  'Neos.Flow:Everybody':
+    privileges:
+      -
+        privilegeTarget: WebExcess_RedirectHandler_Localization_Redirect
+        permission: GRANT

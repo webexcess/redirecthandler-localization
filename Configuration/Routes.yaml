@@ -1,0 +1,13 @@
+-
+  name: 'Localization Redirect'
+  uriPattern: '{node}/localization-redirect/{identifier}'
+  defaults:
+    '@package': 'WebExcess.RedirectHandler.Localization'
+    '@controller': 'Redirect'
+    '@action': 'do'
+    '@format': 'html'
+    'identifier': ''
+  routeParts:
+    node:
+      handler: Neos\Neos\Routing\FrontendNodeRoutePartHandler
+  appendExceedingArguments: true

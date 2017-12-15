@@ -1,0 +1,19 @@
+Neos:
+  Flow:
+    mvc:
+      routes:
+        'WebExcess.RedirectHandler.Localization':
+          position: 'before Neos.Neos'
+
+WebExcess:
+  RedirectHandler:
+    Localization:
+      dimensionIdentifiers:
+        linguistic: 'language'
+#        regional: 'country'
+      overwriteDefaultDimensionUriSegment: []
+#      overwriteDefaultDimensionUriSegment:
+#        language: 'de'
+#        country: 'CH'
+      ipinfoToken: '' # If you need to make under 1,000 requests a day to the API and it's for non-commerical use, otherwise sign up: https://ipinfo.io/signup
+#      ipinfoToken: ~ # Disable ipinfo to use https://pecl.php.net/package/geoip

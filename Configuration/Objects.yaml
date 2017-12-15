@@ -1,0 +1,10 @@
+
+# Localize only the language..
+# ex. domain.com/de/url
+WebExcess\RedirectHandler\Localization\Service\LocalizationInterface:
+  className: WebExcess\RedirectHandler\Localization\Service\LanguageLocalization
+
+# Localize language and country..
+# ex. domain.com/de_CH/url
+#WebExcess\RedirectHandler\Localization\Service\LocalizationInterface:
+#  className: WebExcess\RedirectHandler\Localization\Service\LanguageAndCountryLocalization
