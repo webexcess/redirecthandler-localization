@@ -17,3 +17,6 @@ WebExcess:
 #        country: 'CH'
       ipinfoToken: '' # If you need to make under 1,000 requests a day to the API and it's for non-commerical use, otherwise sign up: https://ipinfo.io/signup
 #      ipinfoToken: ~ # Disable ipinfo to use https://pecl.php.net/package/geoip
+      errorHandling:
+        statusCode: '404'
+        uri: '404-redirect-localization'
