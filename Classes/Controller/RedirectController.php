@@ -23,6 +23,12 @@ class RedirectController extends ActionController
     protected $errorHandling;
 
     /**
+     * @Flow\InjectConfiguration(path="redirectQueryParams")
+     * @var boolean
+     */
+    protected $redirectQueryParams;
+
+    /**
      * @var LinkingService
      * @Flow\Inject
      */
@@ -63,6 +69,15 @@ class RedirectController extends ActionController
         if ($targetNode !== null) {
             $uri = $this->getUriToNode($targetNode);
             $statusCode = 303;
+        }
+
+        try {
+            $queryParams = $this->request->getMainRequest()->getParentRequest()->getQueryParams();
+            if ($this->redirectQueryParams && $queryParams) {
+                $uri .= '?' . http_build_query($queryParams);
+            }
+        } catch (\Exception $e) {
+            // ignore..
         }
 
         $this->redirectToUri($uri, 0, $statusCode);

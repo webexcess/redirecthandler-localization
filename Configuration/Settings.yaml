@@ -20,3 +20,4 @@ WebExcess:
       errorHandling:
         statusCode: '404'
         uri: '404-redirect-localization'
+      redirectQueryParams: false
