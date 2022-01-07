@@ -3,7 +3,7 @@
 namespace WebExcess\RedirectHandler\Localization\Service;
 
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Http\Request;
+use GuzzleHttp\Psr7\ServerRequest as Request;
 use Neos\Flow\I18n\Detector;
 use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 

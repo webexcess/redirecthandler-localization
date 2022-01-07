@@ -1,9 +1,9 @@
 <?php
 namespace WebExcess\RedirectHandler\Localization\Controller;
 
-use Neos\Eel\FlowQuery\FlowQuery;
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Http\Response;
+use Neos\Eel\FlowQuery\FlowQuery;
+use Neos\Flow\Mvc\ActionResponse as Response;
 use Neos\Flow\Mvc\Controller\ActionController;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\Mvc\Controller\Arguments;
@@ -72,7 +72,13 @@ class RedirectController extends ActionController
         }
 
         try {
-            $queryParams = $this->request->getMainRequest()->getParentRequest()->getQueryParams();
+            $queryParams = '';
+            $parentRequest = $this->request->getMainRequest()->getParentRequest();
+            if ($parentRequest) {
+                $queryParams = $parentRequest->getQueryParams();
+            } else {
+                $queryParams = $this->request->getHttpRequest()->getQueryParams();
+            }
             if ($this->redirectQueryParams && $queryParams) {
                 $uri .= '?' . http_build_query($queryParams);
             }

@@ -3,7 +3,7 @@
 namespace WebExcess\RedirectHandler\Localization\Service;
 
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Http\Request;
+use GuzzleHttp\Psr7\ServerRequest as Request;
 use Neos\Flow\I18n\Detector;
 use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 
@@ -39,14 +39,14 @@ class LanguageLocalization implements LocalizationInterface
     {
         $dimensionNamesAndPresets = [];
 
-        $locale = $this->localeDetector->detectLocaleFromHttpHeader($httpRequest->getHeader('Accept-Language'));
+        $locale = $this->localeDetector->detectLocaleFromHttpHeader($httpRequest->getHeader('Accept-Language')[0]);
         $dimensionNamesAndPresets[$this->dimensionIdentifiers['linguistic']] = $this->contentDimensionPresetSource->findPresetByUriSegment(
             $this->dimensionIdentifiers['linguistic'],
             $locale->getLanguage()
         );
 
         return [
-            'dimensions'       => [
+            'dimensions' => [
                 'language' => $dimensionNamesAndPresets['language']['values'],
             ],
             'targetDimensions' => [

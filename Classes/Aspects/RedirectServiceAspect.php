@@ -5,9 +5,8 @@ namespace WebExcess\RedirectHandler\Localization\Aspects;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Aop\JoinPointInterface;
 
-use Neos\Flow\Http\Headers;
-use Neos\Flow\Http\Request as Request;
-use Neos\Flow\Http\Response;
+use GuzzleHttp\Psr7\ServerRequest as Request;
+use GuzzleHttp\Psr7\Response as Response;
 use Neos\Neos\Domain\Service\ContentDimensionPresetSourceInterface;
 use Neos\RedirectHandler\Exception;
 use Neos\RedirectHandler\RedirectInterface;
@@ -69,9 +68,8 @@ class RedirectServiceAspect
             return null;
         }
 
-        $response = new Response();
         $statusCode = $redirect->getStatusCode();
-        $response->setStatus($statusCode);
+        $response = new Response($statusCode);
 
         if ($statusCode >= 300 && $statusCode <= 399) {
             $location = $redirect->getTargetUriPath();
@@ -81,14 +79,18 @@ class RedirectServiceAspect
             }
 
             if (parse_url($location, PHP_URL_SCHEME) === null) {
-                $location = $httpRequest->getBaseUri() . $location;
+                $location = $httpRequest->getUri()->getScheme() . '://' . $httpRequest->getUri()->getHost() . '/' . $location;
             }
 
-            $response->setHeaders(new Headers([
+            if ($httpRequest->getServerParams()['QUERY_STRING']) {
+                $location .= '?' . $httpRequest->getServerParams()['QUERY_STRING'];
+            }
+
+            $response = new Response($statusCode, [
                 'Location'      => $location,
                 'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
                 'Expires'       => 'Sat, 26 Jul 1997 05:00:00 GMT',
-            ]));
+            ]);
         } elseif ($statusCode >= 400 && $statusCode <= 599) {
             $exception = new Exception();
             $exception->setStatusCode($statusCode);

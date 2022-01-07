@@ -2,7 +2,7 @@
 
 namespace WebExcess\RedirectHandler\Localization\Service;
 
-use Neos\Flow\Http\Request;
+use GuzzleHttp\Psr7\ServerRequest as Request;
 
 interface LocalizationInterface
 {
