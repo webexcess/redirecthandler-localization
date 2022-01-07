@@ -5,10 +5,6 @@
 
 This package allows to create [Neos.RedirectHandler](https://github.com/neos/redirecthandler) shortcuts which gets redirected to the matching language and region dimension of the visitor.
 
-## Compatibility and Maintenance
-
-This package is compatible with Neos 3.x and will be maintained for upcoming versions.
-
 ## Installation
 ```
 composer require webexcess/redirecthandler-localization
